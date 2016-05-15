@@ -7,7 +7,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testConstructorTrimsPath()
     {
         $given = '/hello/world/';
-        $expected = 'hello/world';
+        $expected = '/hello/world';
 
         $instance = new Resource($given);
 
@@ -16,8 +16,8 @@ class ResourceTest extends PHPUnit_Framework_TestCase
 
     public function testSetPathTrimsPath()
     {
-        $given = '/hello/world/';
-        $expected = 'hello/world';
+        $given = 'hello/world/';
+        $expected = '/hello/world';
 
         $instance = new Resource('/');
 
@@ -45,7 +45,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testConstructorCompilesPathWithoutDynamicParts()
     {
         $given = '/hello/world/';
-        $expected = '^hello/world$';
+        $expected = '^/hello/world$';
 
         $instance = new Resource($given);
 
@@ -55,7 +55,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testSetPathCompilesPathWithoutDynamicParts()
     {
         $given = '/hello/world/';
-        $expected = '^hello/world$';
+        $expected = '^/hello/world$';
 
         $instance = new Resource('/');
 
@@ -67,7 +67,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testConstructorCompilesPathWithDynamicParts()
     {
         $given = '/hello/name:[A-Za-z]+';
-        $expected = '^hello/([A-Za-z]+)$';
+        $expected = '^/hello/([A-Za-z]+)$';
 
         $instance = new Resource($given);
 
@@ -77,7 +77,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testSetPathCompilesPathWithDynamicParts()
     {
         $given = '/hello/name:[A-Za-z]+';
-        $expected = '^hello/([A-Za-z]+)$';
+        $expected = '^/hello/([A-Za-z]+)$';
 
         $instance = new Resource('/');
 
@@ -90,7 +90,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     {
         $suffix = '/world';
         $prefix = '/hello';
-        $expected = 'hello/world';
+        $expected = '/hello/world';
 
         $instance = new Resource($suffix);
 
@@ -103,7 +103,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     {
         $suffix = '/world';
         $prefix = '/hello';
-        $expected = '^hello/world$';
+        $expected = '^/hello/world$';
 
         $instance = new Resource($suffix);
 
@@ -116,7 +116,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     {
         $suffix = '/from:[A-Z]+';
         $prefix = '/hello/to:[A-Z]+';
-        $expected = '^hello/([A-Z]+)/([A-Z]+)$';
+        $expected = '^/hello/([A-Z]+)/([A-Z]+)$';
 
         $instance = new Resource($suffix);
 
@@ -188,7 +188,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testGetPathReturnsTrimmedPath()
     {
         $given = '/hello/world/';
-        $expected = 'hello/world';
+        $expected = '/hello/world';
 
         $instance = new Resource($given);
 
@@ -201,7 +201,7 @@ class ResourceTest extends PHPUnit_Framework_TestCase
     public function testGetCompiledPathReturnsCompiledPath()
     {
         $given = '/hello/world';
-        $expected = '^hello/world$';
+        $expected = '^/hello/world$';
 
         $instance = new Resource($given);
 

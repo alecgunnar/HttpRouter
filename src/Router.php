@@ -37,22 +37,17 @@ class Router implements RouterInterface
         $matches = [];
 
         foreach ($this->collection->getRoutes() as $route) {
-            $methodMatched = $this->checkMethod($request, $route);
-
             $resource = $route->getResource();
+            $match = null;
 
             if ($resource->isDynamic()) {
-                if (preg_match_all(
-                    $resource->getCompiledPath(),
-                    $request->getUri()->getPath(),
-                    $params
-                ) == count($resource->getParams())) {
-                    $matches[] = new Match($route, $methodMatched, array_combine($resource->getParams(), $params));
-                }
+                $match = $this->checkDynamicRoute($request, $route);
             } else {
-                if ($resource->getPath() == $request->getUri()->getPath()) {
-                    $matches[] = new Match($route, $methodMatched);
-                }
+                $match = $this->checkStaticRoute($request, $route);
+            }
+
+            if ($match instanceof Match) {
+                $matches[] = $match;
             }
         }
 
@@ -62,5 +57,31 @@ class Router implements RouterInterface
     private function checkMethod(RequestInterface $request, Route $route): bool
     {
         return in_array($request->getMethod(), $route->getMethods());
+    }
+
+    private function checkStaticRoute(RequestInterface $request, Route $route)
+    {
+        if ($route->getResource()->getPath() == $request->getUri()->getPath()) {
+            return new Match($route, $this->checkMethod($request, $route));
+        }
+    }
+
+    private function checkDynamicRoute(RequestInterface $request, Route $route)
+    {
+        $resource = $route->getResource();
+
+        if (preg_match(
+            '#' . $resource->getCompiledPath() . '#',
+            $request->getUri()->getPath(),
+            $params
+        ) == count($resource->getParams())) {
+            array_shift($params);
+
+            return new Match(
+                $route,
+                $this->checkMethod($request, $route),
+                array_combine($resource->getParams(), $params)
+            );
+        }
     }
 }

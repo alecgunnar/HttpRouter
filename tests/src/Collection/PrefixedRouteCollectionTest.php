@@ -32,7 +32,7 @@ class PrefixedRouteCollectionTest extends PHPUnit_Framework_TestCase
         $prefix = new Resource('/hello');
         $path = new Resource('/to:*');
         $route = $this->getDummyRoute()->setResource($path);
-        $expected = 'hello/to:*';
+        $expected = '/hello/to:*';
 
         $instance = new PrefixedRouteCollection($prefix);
 
@@ -50,7 +50,7 @@ class PrefixedRouteCollectionTest extends PHPUnit_Framework_TestCase
         $route2 = $this->getDummyRoute()->setResource(new Resource('/sally'));
         $route3 = $this->getDummyRoute()->setResource(new Resource('/bob'));
         $prefix = new Resource('/hello');
-        $expected = 'hello/world';
+        $expected = '/hello/world';
 
         $collection->withRoute($route1, $name1);
 

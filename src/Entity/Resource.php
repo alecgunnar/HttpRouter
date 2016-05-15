@@ -81,7 +81,7 @@ class Resource
      */
     public function withPrefix(string $prefix): Resource
     {
-        $this->path = $this->trimPath($prefix) . self::PART_SEP . $this->path;
+        $this->path = $this->trimPath($prefix) . $this->path;
 
         $this->compilePath();
 
@@ -116,7 +116,7 @@ class Resource
         $pattern = '';
         $this->params = [];
 
-        $parts = explode(self::PART_SEP, $this->path);
+        $parts = explode(self::PART_SEP, trim($this->path, self::PART_SEP));
 
         foreach($parts as $part) {
             $data = explode(self::PATTERN_SEP, $part);
@@ -132,13 +132,8 @@ class Resource
         $this->compiled = '^' . $this->trimPath($pattern) . '$';
     }
 
-    /**
-     * Removes bad characters from the beginning and end of the path
-     *
-     * @param string $path The path to be trimmed
-     */
     private function trimPath(string $path)
     {
-        return trim($path, self::TRIM_CHARS);
+        return self::PART_SEP . trim($path, self::TRIM_CHARS);
     }
 }

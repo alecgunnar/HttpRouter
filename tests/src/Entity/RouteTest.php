@@ -169,7 +169,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
     public function testMatchCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $methods = Route::HTTP_METHODS;
-        $path = 'hello/world';
+        $path = '/hello/world';
         $handler = function() { };
         $secure = true;
 
@@ -180,7 +180,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
     public function testGetCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
-        $path = 'hello/world';
+        $path = '/hello/world';
         $handler = function() { };
         $secure = true;
 
@@ -191,7 +191,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
     public function testPutCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
-        $path = 'hello/world';
+        $path = '/hello/world';
         $handler = function() { };
         $secure = true;
 
@@ -202,7 +202,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
     public function testPostCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
-        $path = 'hello/world';
+        $path = '/hello/world';
         $handler = function() { };
         $secure = true;
 
@@ -213,7 +213,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
     public function testPatchCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
-        $path = 'hello/world';
+        $path = '/hello/world';
         $handler = function() { };
         $secure = true;
 
@@ -224,12 +224,23 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
     public function testDeleteCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
-        $path = 'hello/world';
+        $path = '/hello/world';
         $handler = function() { };
         $secure = true;
 
         $route = Route::delete($path, $handler, $secure);
 
         $this->runTestsOnFactoryGeneratedRoute($route, ['DELETE'], $path, $handler, $secure);
+    }
+
+    public function testAnyCreatesNewRouteUsingArgumentsAndReturnsIt()
+    {
+        $path = '/hello/world';
+        $handler = function() { };
+        $secure = true;
+
+        $route = Route::any($path, $handler, $secure);
+
+        $this->runTestsOnFactoryGeneratedRoute($route, Route::HTTP_METHODS, $path, $handler, $secure);
     }
 }
