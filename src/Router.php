@@ -70,7 +70,8 @@ class Router implements RouterInterface
 
     private function checkMethodAndSecure(RequestInterface $request, Route $route): bool
     {
-        return in_array($request->getMethod(), $route->getMethods()) && (!$route->getSecure() || $request->getUri()->getScheme() == self::HTTPS_SCHEME);
+        return in_array($request->getMethod(), $route->getMethods())
+            && (!$route->getSecure() || $request->getUri()->getScheme() == self::HTTPS_SCHEME);
     }
 
     private function checkStaticRoute(RequestInterface $request, Route $route)
