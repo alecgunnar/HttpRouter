@@ -19,13 +19,11 @@ class MatchTest extends PHPUnit_Framework_TestCase
         $route = new class extends Route {
             public function __construct() { }
         };
-        $methodToo = false;
         $params = ['a' => 'b', 'c' => 'd'];
 
-        $instance = new Match($route, $methodToo, $params);
+        $instance = new Match($route, $params);
 
         $this->assertAttributeEquals($route, 'route', $instance);
-        $this->assertAttributeEquals($methodToo, 'methodToo', $instance);
         $this->assertAttributeEquals($params, 'params', $instance);
     }
 
@@ -46,23 +44,11 @@ class MatchTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testConstructorSetsAttributes
      */
-    public function testGetMethodTooReturnsMethodToo()
-    {
-        $given = $expected = true;
-
-        $instance = new Match($this->dummyRoute, $given);
-
-        $this->assertEquals($expected, $instance->getMethodToo());
-    }
-
-    /**
-     * @depends testConstructorSetsAttributes
-     */
     public function testGetPatamsReturnsParams()
     {
         $given = $expected = ['a' => 'b', 'c' => 'd'];
 
-        $instance = new Match($this->dummyRoute, false, $given);
+        $instance = new Match($this->dummyRoute, $given);
 
         $this->assertEquals($expected, $instance->getParams());
     }

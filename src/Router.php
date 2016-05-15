@@ -22,6 +22,16 @@ class Router implements RouterInterface
     private $collection;
 
     /**
+     * @var int
+     */
+    const HTTP_SCHEME = 'http';
+
+    /**
+     * @var int
+     */
+    const HTTPS_SCHEME = 'https';
+
+    /**
      * @param RouteCollectionInterface $collection The collection of routes to be used
      */
     public function __construct(RouteCollectionInterface $collection)
@@ -32,11 +42,15 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function getMatches(RequestInterface $request): array
+    public function getMatch(RequestInterface $request)
     {
         $matches = [];
 
         foreach ($this->collection->getRoutes() as $route) {
+            if (!$this->checkMethodAndSecure($request, $route)) {
+                continue;
+            }
+
             $resource = $route->getResource();
             $match = null;
 
@@ -47,22 +61,22 @@ class Router implements RouterInterface
             }
 
             if ($match instanceof Match) {
-                $matches[] = $match;
+                return $match;
             }
         }
 
-        return $matches;
+        return false;
     }
 
-    private function checkMethod(RequestInterface $request, Route $route): bool
+    private function checkMethodAndSecure(RequestInterface $request, Route $route): bool
     {
-        return in_array($request->getMethod(), $route->getMethods());
+        return in_array($request->getMethod(), $route->getMethods()) && (!$route->getSecure() || $request->getUri()->getScheme() == self::HTTPS_SCHEME);
     }
 
     private function checkStaticRoute(RequestInterface $request, Route $route)
     {
         if ($route->getResource()->getPath() == $request->getUri()->getPath()) {
-            return new Match($route, $this->checkMethod($request, $route));
+            return new Match($route);
         }
     }
 
@@ -76,12 +90,7 @@ class Router implements RouterInterface
             $params
         ) == count($resource->getParams())) {
             array_shift($params);
-
-            return new Match(
-                $route,
-                $this->checkMethod($request, $route),
-                array_combine($resource->getParams(), $params)
-            );
+            return new Match($route, array_combine($resource->getParams(), $params));
         }
     }
 }

@@ -17,13 +17,6 @@ class Match
     private $route;
 
     /**
-     * Was the method of the route matched too?
-     *
-     * @var bool
-     */
-    private $methodToo;
-
-    /**
      * Any dynamic params taken from the resource name
      *
      * @var array
@@ -31,24 +24,18 @@ class Match
     private $params;
 
     /**
-     * @param Route $matched The matched route
+     * @param Route $route The matched route
      * @param array $params=[] Params from dynamic parts of resource name
      */
-    public function __construct(Route $route, bool $methodToo=true, array $params=[])
+    public function __construct(Route $route, array $params=[])
     {
         $this->route = $route;
-        $this->methodToo = $methodToo;
         $this->params = $params;
     }
 
     public function getRoute(): Route
     {
         return $this->route;
-    }
-
-    public function getMethodToo(): bool
-    {
-        return $this->methodToo;
     }
 
     public function getParams(): array

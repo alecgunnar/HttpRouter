@@ -17,7 +17,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
     private function getDummyRequest($method, $path)
     {
-        return new Request($method, 'http://localhost' . $path);
+        return new Request($method, 'http://localhost:80' . $path);
     }
 
     public function testConstructorSetsCollection()
@@ -29,7 +29,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals($expected, 'collection', $instance);
     }
 
-    public function testGetMatchesCanMatchStaticRoutes()
+    public function testGetMatchCanMatchStaticRoutes()
     {
         $method = 'GET';
         $path = '/hello/world';
@@ -41,12 +41,12 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
         $instance = new Router($collection);
 
-        list($match) = $instance->getMatches($request);
+        $match = $instance->getMatch($request);
 
         $this->assertEquals($route, $match->getRoute());
     }
 
-    public function testGetMatchesCanMatchDynamicRoutes()
+    public function testGetMatchCanMatchDynamicRoutes()
     {
         $method = 'GET';
         $param = 'to';
@@ -62,40 +62,16 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
         $instance = new Router($collection);
 
-        list($match) = $instance->getMatches($request);
+        $match = $instance->getMatch($request);
 
         $this->assertEquals($route, $match->getRoute());
         $this->assertEquals($params, $match->getParams());
     }
 
-    /**
-     * @depends testGetMatchesCanMatchStaticRoutes
-     */
-    public function testRouterSetsWhetherTheMethodMatches()
+    public function testGetMatchWontMatchIfMethodIsNotValid()
     {
         $path = '/hello/world';
-
         $route = new Route(['GET'], new Resource($path), $this->dummyHandler);
-        $request = $this->getDummyRequest('GET', $path);
-
-        $collection = new RouteCollection();
-        $collection->withRoute($route);
-
-        $instance = new Router($collection);
-
-        list($match) = $instance->getMatches($request);
-
-        $this->assertTrue($match->getMethodToo());
-    }
-
-    /**
-     * @depends testGetMatchesCanMatchStaticRoutes
-     */
-    public function testRouterCanCheckMultiplePossibleMethods()
-    {
-        $path = '/hello/world';
-
-        $route = new Route(['GET', 'POST', 'PUT', 'DELETE'], new Resource($path), $this->dummyHandler);
         $request = $this->getDummyRequest('POST', $path);
 
         $collection = new RouteCollection();
@@ -103,8 +79,20 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
         $instance = new Router($collection);
 
-        list($match) = $instance->getMatches($request);
+        $this->assertFalse($instance->getMatch($request));
+    }
 
-        $this->assertTrue($match->getMethodToo());
+    public function testGetMatchWontMatchIfSecureIsNotValid()
+    {
+        $path = '/hello/world';
+        $route = new Route(['GET'], new Resource($path), $this->dummyHandler, true);
+        $request = $this->getDummyRequest('GET', $path);
+
+        $collection = new RouteCollection();
+        $collection->withRoute($route);
+
+        $instance = new Router($collection);
+
+        $this->assertFalse($instance->getMatch($request));
     }
 }

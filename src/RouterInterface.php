@@ -19,7 +19,7 @@ interface RouterInterface {
      * Gets all of the routes whose resource's path matches the given request's uri's path
      *
      * @param RequestInterface $request The request to be matched
-     * @return Match[]
+     * @return Match|bool
      */
-    public function getMatches(RequestInterface $request): array;
+    public function getMatch(RequestInterface $request);
 }
