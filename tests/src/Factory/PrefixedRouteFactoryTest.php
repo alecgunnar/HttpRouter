@@ -26,7 +26,7 @@ class PrefixedRouteFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->prefix . $this->path, $resource->getPath());
     }
 
-    public function testMatchCreatesNewRouteUsingArgumentsPrependsPrefixAndReturnsIt()
+    public function testGetInstanceCreatesNewRouteUsingArgumentsPrependsPrefixAndReturnsIt()
     {
         $methods = Route::HTTP_METHODS;
         $resource = new Resource($this->path);
@@ -34,7 +34,7 @@ class PrefixedRouteFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = $this->getInstance();
 
-        $route = $factory->match($methods, $resource, $handler);
+        $route = $factory->getInstance($methods, $resource, $handler);
 
         $this->runTestsOnFactoryGeneratedRoute($route, $methods, $resource, $handler);
     }

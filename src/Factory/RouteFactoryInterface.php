@@ -22,7 +22,7 @@ interface RouteFactoryInterface
      * @param string $name
      * @return Route
      */
-    public function match(array $methods, Resource $resource, callable $handler): Route;
+    public function getInstance(array $methods, Resource $resource, callable $handler): Route;
 
     /**
      * Add a new get route

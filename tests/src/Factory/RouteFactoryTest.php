@@ -16,7 +16,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals($handler, 'handler', $route);
     }
 
-    public function testMatchCreatesNewRouteUsingArgumentsAndReturnsIt()
+    public function testGetInstanceCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $methods = RouteFactory::HTTP_METHODS;
         $resource = new Resource('/hello/world');
@@ -24,7 +24,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new RouteFactory();
 
-        $route = $factory->match($methods, $resource, $handler);
+        $route = $factory->getInstance($methods, $resource, $handler);
 
         $this->runTestsOnFactoryGeneratedRoute($route, $methods, $resource, $handler);
     }

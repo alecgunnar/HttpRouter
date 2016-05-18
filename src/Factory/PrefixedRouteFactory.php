@@ -28,7 +28,7 @@ class PrefixedRouteFactory extends RouteFactory
     /**
      * @inheritDoc
      */
-    public function match(array $methods, Resource $resource, callable $handler): Route
+    public function getInstance(array $methods, Resource $resource, callable $handler): Route
     {
         $resource->withPrefix($this->prefix);
 

@@ -20,7 +20,7 @@ class RouteFactory implements RouteFactoryInterface
     /**
      * @inheritDoc
      */
-    public function match(array $methods, Resource $resource, callable $handler): Route
+    public function getInstance(array $methods, Resource $resource, callable $handler): Route
     {
         return new Route($methods, $resource, $handler);
     }
@@ -30,7 +30,7 @@ class RouteFactory implements RouteFactoryInterface
      */
     public function get(Resource $resource, callable $handler): Route
     {
-        return $this->match(['GET'], $resource, $handler);
+        return $this->getInstance(['GET'], $resource, $handler);
     }
 
     /**
@@ -38,7 +38,7 @@ class RouteFactory implements RouteFactoryInterface
      */
     public function post(Resource $resource, callable $handler): Route
     {
-        return $this->match(['POST'], $resource, $handler);
+        return $this->getInstance(['POST'], $resource, $handler);
     }
 
     /**
@@ -46,7 +46,7 @@ class RouteFactory implements RouteFactoryInterface
      */
     public function put(Resource $resource, callable $handler): Route
     {
-        return $this->match(['PUT'], $resource, $handler);
+        return $this->getInstance(['PUT'], $resource, $handler);
     }
 
     /**
@@ -54,7 +54,7 @@ class RouteFactory implements RouteFactoryInterface
      */
     public function patch(Resource $resource, callable $handler): Route
     {
-        return $this->match(['PATCH'], $resource, $handler);
+        return $this->getInstance(['PATCH'], $resource, $handler);
     }
 
     /**
@@ -62,7 +62,7 @@ class RouteFactory implements RouteFactoryInterface
      */
     public function delete(Resource $resource, callable $handler): Route
     {
-        return $this->match(['DELETE'], $resource, $handler);
+        return $this->getInstance(['DELETE'], $resource, $handler);
     }
 
     /**
@@ -70,6 +70,6 @@ class RouteFactory implements RouteFactoryInterface
      */
     public function any(Resource $resource, callable $handler): Route
     {
-        return $this->match(Route::HTTP_METHODS, $resource, $handler);
+        return $this->getInstance(Route::HTTP_METHODS, $resource, $handler);
     }
 }
