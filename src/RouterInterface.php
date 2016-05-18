@@ -21,5 +21,5 @@ interface RouterInterface {
      * @param ServerRequestInterface $request The request to be matched
      * @return Match|bool
      */
-    public function getMatch(ServerRequestInterface $request);
+    public function getMatch(ServerRequestInterface $request): Match;
 }

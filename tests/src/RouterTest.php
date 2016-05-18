@@ -93,11 +93,30 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $match = $instance->getMatch($request);
     }
 
-    public function testGetMatchWontMatchIfMethodIsNotValid()
+    /**
+     * @expectedException \AlecGunnar\HttpRouter\Exception\NotAllowedException
+     */
+    public function testExceptionThrownIfMatchesFoundByNoneWithAValidMethod()
     {
         $path = '/hello/world';
         $route = new Route(['GET'], new Resource($path), $this->dummyHandler);
         $request = $this->getDummyRequest('POST', $path);
+
+        $collection = new RouteCollection();
+        $collection->withRoute($route);
+
+        $instance = $this->getInstance($collection);
+
+        $this->assertFalse($instance->getMatch($request));
+    }
+
+    /**
+     * @expectedException \AlecGunnar\HttpRouter\Exception\NotFoundException
+     */
+    public function testExceptionThrownIfNoMatchesAreFound()
+    {
+        $route = new Route(['GET'], new Resource('/world/hello'), $this->dummyHandler);
+        $request = $this->getDummyRequest('POST', '/hello/world');
 
         $collection = new RouteCollection();
         $collection->withRoute($route);

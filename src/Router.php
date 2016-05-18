@@ -12,6 +12,8 @@ use AlecGunnar\HttpRouter\Collection\RouteCollectionInterface;
 use AlecGunnar\HttpRouter\Factory\MatchFactoryInterface;
 use AlecGunnar\HttpRouter\Entity\Match;
 use AlecGunnar\HttpRouter\Entity\Route;
+use AlecGunnar\HttpRouter\Exception\NotAllowedException;
+use AlecGunnar\HttpRouter\Exception\NotFoundException;
 
 class Router implements RouterInterface
 {
@@ -41,30 +43,29 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function getMatch(ServerRequestInterface $request)
+    public function getMatch(ServerRequestInterface $request): Match
     {
-        $matches = [];
+        $matches = 0;
 
         foreach ($this->collection->getRoutes() as $route) {
-            if (!$this->checkHttpMethod($request, $route)) {
-                continue;
-            }
-
-            $resource = $route->getResource();
-            $match = null;
-
-            if ($resource->isDynamic()) {
-                $match = $this->checkDynamicRoute($request, $route);
-            } else {
-                $match = $this->checkStaticRoute($request, $route);
-            }
+            $match = $route->getResource()->isDynamic() 
+                ? $this->checkDynamicRoute($request, $route) 
+                : $this->checkStaticRoute($request, $route);
 
             if ($match instanceof Match) {
-                return $match;
+                if ($this->checkHttpMethod($request, $route)) {
+                    return $match;
+                }
+
+                $matches++;
             }
         }
 
-        return false;
+        if ($matches) {
+            throw new NotAllowedException("The given request's method is not allowed.");
+        }
+
+        throw new NotFoundException('No route was found to match the given request.');
     }
 
     protected function checkHttpMethod(ServerRequestInterface $request, Route $route): bool
