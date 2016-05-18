@@ -75,6 +75,46 @@ interface RouteFactoryInterface
     public function delete(Resource $resource, callable $handler): Route;
 
     /**
+     * Add a new connect route
+     *
+     * @param Resource $resource
+     * @param callable $handler
+     * @param string $name
+     * @return Route
+     */
+    public function connect(Resource $resource, callable $handler): Route;
+
+    /**
+     * Add a new options route
+     *
+     * @param Resource $resource
+     * @param callable $handler
+     * @param string $name
+     * @return Route
+     */
+    public function options(Resource $resource, callable $handler): Route;
+
+    /**
+     * Add a new head route
+     *
+     * @param Resource $resource
+     * @param callable $handler
+     * @param string $name
+     * @return Route
+     */
+    public function head(Resource $resource, callable $handler): Route;
+
+    /**
+     * Add a new trace route
+     *
+     * @param Resource $resource
+     * @param callable $handler
+     * @param string $name
+     * @return Route
+     */
+    public function trace(Resource $resource, callable $handler): Route;
+
+    /**
      * Add a new route to match any method
      *
      * @param Resource $resource

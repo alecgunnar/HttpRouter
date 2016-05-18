@@ -35,7 +35,7 @@ class Route
     /**
      * @var string[]
      */
-    const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+    const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD', 'TRACE', 'CONNECT'];
 
     /**
      * @param array $methods

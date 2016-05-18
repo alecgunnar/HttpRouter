@@ -13,11 +13,6 @@ use AlecGunnar\HttpRouter\Entity\Resource;
 class RouteFactory implements RouteFactoryInterface
 {
     /**
-     * @var string[]
-     */
-    const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
-
-    /**
      * @inheritDoc
      */
     public function getInstance(array $methods, Resource $resource, callable $handler): Route
@@ -63,6 +58,38 @@ class RouteFactory implements RouteFactoryInterface
     public function delete(Resource $resource, callable $handler): Route
     {
         return $this->getInstance(['DELETE'], $resource, $handler);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function connect(Resource $resource, callable $handler): Route
+    {
+        return $this->getInstance(['CONNECT'], $resource, $handler);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function options(Resource $resource, callable $handler): Route
+    {
+        return $this->getInstance(['OPTIONS'], $resource, $handler);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function head(Resource $resource, callable $handler): Route
+    {
+        return $this->getInstance(['HEAD'], $resource, $handler);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function trace(Resource $resource, callable $handler): Route
+    {
+        return $this->getInstance(['TRACE'], $resource, $handler);
     }
 
     /**
