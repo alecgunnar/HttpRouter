@@ -5,8 +5,10 @@ namespace AlecGunnar\HttpRouter\Test;
 use PHPUnit_Framework_TestCase;
 use AlecGunnar\HttpRouter\Router;
 use AlecGunnar\HttpRouter\Collection\RouteCollection;
+use AlecGunnar\HttpRouter\Factory\MatchFactory;
 use AlecGunnar\HttpRouter\Entity\Route;
 use AlecGunnar\HttpRouter\Entity\Resource;
+use AlecGunnar\HttpRouter\Entity\Match;
 use GuzzleHttp\Psr7\ServerRequest;
 
 class RouterTest extends PHPUnit_Framework_TestCase
@@ -18,6 +20,11 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $this->dummyHandler = function() { };
     }
 
+    protected function getInstance($collection, $matchFactory=null)
+    {
+        return new Router($collection, $matchFactory ?? new MatchFactory());
+    }
+
     private function getDummyRequest($method, $path)
     {
         return new ServerRequest($method, 'http://localhost:80' . $path);
@@ -27,7 +34,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
     {
         $given = $expected = new RouteCollection();
 
-        $instance = new Router($given);
+        $instance = $this->getInstance($given);
 
         $this->assertAttributeEquals($expected, 'collection', $instance);
     }
@@ -42,11 +49,17 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $collection = new RouteCollection();
         $collection->withRoute($route);
 
-        $instance = new Router($collection);
+        $matchFactory = $this->getMockBuilder(MatchFactory::class)
+            ->getMock();
+
+        $matchFactory->expects($this->once())
+            ->method('getInstance')
+            ->with($route)
+            ->will($this->returnValue(new Match($route)));
+
+        $instance = $this->getInstance($collection, $matchFactory);
 
         $match = $instance->getMatch($request);
-
-        $this->assertEquals($route, $match->getRoute());
     }
 
     public function testGetMatchCanMatchDynamicRoutes()
@@ -63,12 +76,17 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $collection = new RouteCollection();
         $collection->withRoute($route);
 
-        $instance = new Router($collection);
+        $matchFactory = $this->getMockBuilder(MatchFactory::class)
+            ->getMock();
+
+        $matchFactory->expects($this->once())
+            ->method('getInstance')
+            ->with($route, $params)
+            ->will($this->returnValue(new Match($route, $params)));
+
+        $instance = $this->getInstance($collection, $matchFactory);
 
         $match = $instance->getMatch($request);
-
-        $this->assertEquals($route, $match->getRoute());
-        $this->assertEquals($params, $match->getParams());
     }
 
     public function testGetMatchWontMatchIfMethodIsNotValid()
@@ -80,7 +98,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $collection = new RouteCollection();
         $collection->withRoute($route);
 
-        $instance = new Router($collection);
+        $instance = $this->getInstance($collection);
 
         $this->assertFalse($instance->getMatch($request));
     }

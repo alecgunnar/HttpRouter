@@ -9,6 +9,7 @@ namespace AlecGunnar\HttpRouter;
 
 use Psr\Http\Message\ServerRequestInterface;
 use AlecGunnar\HttpRouter\Collection\RouteCollectionInterface;
+use AlecGunnar\HttpRouter\Factory\MatchFactoryInterface;
 use AlecGunnar\HttpRouter\Entity\Match;
 use AlecGunnar\HttpRouter\Entity\Route;
 
@@ -22,11 +23,19 @@ class Router implements RouterInterface
     protected $collection;
 
     /**
+     * Factory to generate match objects
+     *
+     * @var MatchFactoryInterface
+     */
+    protected $matches;
+
+    /**
      * @param RouteCollectionInterface $collection The collection of routes to be used
      */
-    public function __construct(RouteCollectionInterface $collection)
+    public function __construct(RouteCollectionInterface $collection, MatchFactoryInterface $matches)
     {
         $this->collection = $collection;
+        $this->matches = $matches;
     }
 
     /**
@@ -66,7 +75,7 @@ class Router implements RouterInterface
     protected function checkStaticRoute(ServerRequestInterface $request, Route $route)
     {
         if ($route->getResource()->getPath() == $request->getUri()->getPath()) {
-            return new Match($route);
+            return $this->matches->getInstance($route);
         }
     }
 
@@ -80,7 +89,7 @@ class Router implements RouterInterface
             $params
         ) == count($resource->getParams())) {
             array_shift($params);
-            return new Match($route, array_combine($resource->getParams(), $params));
+            return $this->matches->getInstance($route, array_combine($resource->getParams(), $params));
         }
     }
 }
