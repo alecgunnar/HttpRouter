@@ -113,7 +113,7 @@ class Resource
     /**
      * Creates the matchable regex path for the route matcher
      */
-    private function compilePath()
+    protected function compilePath()
     {
         $pattern = '';
         $this->params = [];
@@ -134,7 +134,7 @@ class Resource
         $this->compiled = '^' . $this->trimPath($pattern) . '$';
     }
 
-    private function trimPath(string $path)
+    protected function trimPath(string $path)
     {
         return self::PART_SEP . trim($path, self::TRIM_CHARS);
     }

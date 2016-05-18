@@ -58,19 +58,19 @@ class Router implements RouterInterface
         return false;
     }
 
-    private function checkHttpMethod(ServerRequestInterface $request, Route $route): bool
+    protected function checkHttpMethod(ServerRequestInterface $request, Route $route): bool
     {
         return in_array($request->getMethod(), $route->getMethods());
     }
 
-    private function checkStaticRoute(ServerRequestInterface $request, Route $route)
+    protected function checkStaticRoute(ServerRequestInterface $request, Route $route)
     {
         if ($route->getResource()->getPath() == $request->getUri()->getPath()) {
             return new Match($route);
         }
     }
 
-    private function checkDynamicRoute(ServerRequestInterface $request, Route $route)
+    protected function checkDynamicRoute(ServerRequestInterface $request, Route $route)
     {
         $resource = $route->getResource();
 
