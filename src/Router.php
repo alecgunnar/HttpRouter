@@ -22,16 +22,6 @@ class Router implements RouterInterface
     private $collection;
 
     /**
-     * @var int
-     */
-    const HTTP_SCHEME = 'http';
-
-    /**
-     * @var int
-     */
-    const HTTPS_SCHEME = 'https';
-
-    /**
      * @param RouteCollectionInterface $collection The collection of routes to be used
      */
     public function __construct(RouteCollectionInterface $collection)
@@ -47,7 +37,7 @@ class Router implements RouterInterface
         $matches = [];
 
         foreach ($this->collection->getRoutes() as $route) {
-            if (!$this->checkMethodAndSecure($request, $route)) {
+            if (!$this->checkHttpMethod($request, $route)) {
                 continue;
             }
 
@@ -68,10 +58,9 @@ class Router implements RouterInterface
         return false;
     }
 
-    private function checkMethodAndSecure(RequestInterface $request, Route $route): bool
+    private function checkHttpMethod(RequestInterface $request, Route $route): bool
     {
-        return in_array($request->getMethod(), $route->getMethods())
-            && (!$route->getSecure() || $request->getUri()->getScheme() == self::HTTPS_SCHEME);
+        return in_array($request->getMethod(), $route->getMethods());
     }
 
     private function checkStaticRoute(RequestInterface $request, Route $route)

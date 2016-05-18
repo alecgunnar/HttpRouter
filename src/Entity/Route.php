@@ -33,13 +33,6 @@ class Route
     private $handler;
 
     /**
-     * Does this route require HTTPS
-     *
-     * @var bool
-     */
-    private $secure;
-
-    /**
      * @var string[]
      */
     const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
@@ -47,16 +40,14 @@ class Route
     /**
      * @param array $methods
      * @param Resource $resource
-     * @param callable $handler
-     * @param bool $secure=false
+     * @param callable $handler=false
      */
-    public function __construct(array $methods, Resource $resource, callable $handler, bool $secure=false)
+    public function __construct(array $methods, Resource $resource, callable $handler)
     {
         $this->setMethods($methods);
 
         $this->resource = $resource;
         $this->handler = $handler;
-        $this->secure = $secure;
     }
 
     public function setMethods(array $methods): Route
@@ -99,17 +90,6 @@ class Route
         return $this->handler;
     }
 
-    public function setSecure(bool $secure): Route
-    {
-        $this->secure = $secure;
-        return $this;
-    }
-
-    public function getSecure(): bool
-    {
-        return $this->secure;
-    }
-
     /**
      * Add a new get route
      *
@@ -120,10 +100,10 @@ class Route
      * @param string $name
      * @return Route
      */
-    public static function match(array $methods, string $path, callable $handler, bool $secure=false): Route
+    public static function match(array $methods, string $path, callable $handler): Route
     {
         $resource = new Resource($path);
-        return new self($methods, $resource, $handler, $secure);
+        return new self($methods, $resource, $handler);
     }
 
     /**
@@ -131,13 +111,12 @@ class Route
      *
      * @param string $resource
      * @param callable $handler
-     * @param bool $secure
      * @param string $name
      * @return Route
      */
-    public static function get(string $resource, callable $handler, bool $secure=false): Route
+    public static function get(string $resource, callable $handler): Route
     {
-        return self::match(['GET'], $resource, $handler, $secure);
+        return self::match(['GET'], $resource, $handler);
     }
 
     /**
@@ -145,13 +124,12 @@ class Route
      *
      * @param string $resource
      * @param callable $handler
-     * @param bool $secure
      * @param string $name
      * @return Route
      */
-    public static function post(string $resource, callable $handler, bool $secure=false): Route
+    public static function post(string $resource, callable $handler): Route
     {
-        return self::match(['POST'], $resource, $handler, $secure);
+        return self::match(['POST'], $resource, $handler);
     }
 
     /**
@@ -159,13 +137,12 @@ class Route
      *
      * @param string $resource
      * @param callable $handler
-     * @param bool $secure
      * @param string $name
      * @return Route
      */
-    public static function put(string $resource, callable $handler, bool $secure=false): Route
+    public static function put(string $resource, callable $handler): Route
     {
-        return self::match(['PUT'], $resource, $handler, $secure);
+        return self::match(['PUT'], $resource, $handler);
     }
 
     /**
@@ -173,13 +150,12 @@ class Route
      *
      * @param string $resource
      * @param callable $handler
-     * @param bool $secure
      * @param string $name
      * @return Route
      */
-    public static function patch(string $resource, callable $handler, bool $secure=false): Route
+    public static function patch(string $resource, callable $handler): Route
     {
-        return self::match(['PATCH'], $resource, $handler, $secure);
+        return self::match(['PATCH'], $resource, $handler);
     }
 
     /**
@@ -187,13 +163,12 @@ class Route
      *
      * @param string $resource
      * @param callable $handler
-     * @param bool $secure
      * @param string $name
      * @return Route
      */
-    public static function delete(string $resource, callable $handler, bool $secure=false): Route
+    public static function delete(string $resource, callable $handler): Route
     {
-        return self::match(['DELETE'], $resource, $handler, $secure);
+        return self::match(['DELETE'], $resource, $handler);
     }
 
     /**
@@ -201,12 +176,11 @@ class Route
      *
      * @param string $resource
      * @param callable $handler
-     * @param bool $secure
      * @param string $name
      * @return Route
      */
-    public static function any(string $resource, callable $handler, bool $secure=false): Route
+    public static function any(string $resource, callable $handler): Route
     {
-        return self::match(self::HTTP_METHODS, $resource, $handler, $secure);
+        return self::match(self::HTTP_METHODS, $resource, $handler);
     }
 }

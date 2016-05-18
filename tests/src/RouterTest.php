@@ -84,18 +84,4 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($instance->getMatch($request));
     }
-
-    public function testGetMatchWontMatchIfSecureIsNotValid()
-    {
-        $path = '/hello/world';
-        $route = new Route(['GET'], new Resource($path), $this->dummyHandler, true);
-        $request = $this->getDummyRequest('GET', $path);
-
-        $collection = new RouteCollection();
-        $collection->withRoute($route);
-
-        $instance = new Router($collection);
-
-        $this->assertFalse($instance->getMatch($request));
-    }
 }
