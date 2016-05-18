@@ -7,7 +7,7 @@
 
 namespace AlecGunnar\HttpRouter;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use AlecGunnar\HttpRouter\Collection\RouteCollectionInterface;
 use AlecGunnar\HttpRouter\Entity\Match;
 use AlecGunnar\HttpRouter\Entity\Route;
@@ -32,7 +32,7 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function getMatch(RequestInterface $request)
+    public function getMatch(ServerRequestInterface $request)
     {
         $matches = [];
 
@@ -58,19 +58,19 @@ class Router implements RouterInterface
         return false;
     }
 
-    private function checkHttpMethod(RequestInterface $request, Route $route): bool
+    private function checkHttpMethod(ServerRequestInterface $request, Route $route): bool
     {
         return in_array($request->getMethod(), $route->getMethods());
     }
 
-    private function checkStaticRoute(RequestInterface $request, Route $route)
+    private function checkStaticRoute(ServerRequestInterface $request, Route $route)
     {
         if ($route->getResource()->getPath() == $request->getUri()->getPath()) {
             return new Match($route);
         }
     }
 
-    private function checkDynamicRoute(RequestInterface $request, Route $route)
+    private function checkDynamicRoute(ServerRequestInterface $request, Route $route)
     {
         $resource = $route->getResource();
 

@@ -7,7 +7,7 @@
 
 namespace AlecGunnar\HttpRouter;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use AlecGunnar\HttpRouter\Entity\Match;
 
 interface RouterInterface {
@@ -18,8 +18,8 @@ interface RouterInterface {
     /**
      * Gets all of the routes whose resource's path matches the given request's uri's path
      *
-     * @param RequestInterface $request The request to be matched
+     * @param ServerRequestInterface $request The request to be matched
      * @return Match|bool
      */
-    public function getMatch(RequestInterface $request);
+    public function getMatch(ServerRequestInterface $request);
 }

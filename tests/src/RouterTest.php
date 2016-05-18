@@ -7,7 +7,7 @@ use AlecGunnar\HttpRouter\Router;
 use AlecGunnar\HttpRouter\Collection\RouteCollection;
 use AlecGunnar\HttpRouter\Entity\Route;
 use AlecGunnar\HttpRouter\Entity\Resource;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\ServerRequest;
 
 class RouterTest extends PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
     private function getDummyRequest($method, $path)
     {
-        return new Request($method, 'http://localhost:80' . $path);
+        return new ServerRequest($method, 'http://localhost:80' . $path);
     }
 
     public function testConstructorSetsCollection()
