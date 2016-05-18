@@ -13,11 +13,7 @@ use AlecGunnar\HttpRouter\Entity\Match;
 class MatchFactory implements MatchFactoryInterface
 {
     /**
-     * Add a new get route
-     *
-     * @param Route $route
-     * @param array $params
-     * @return Match
+     * @inheritDoc
      */
     public function getInstance(Route $route, array $params=[]): Match
     {

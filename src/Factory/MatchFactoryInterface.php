@@ -13,7 +13,7 @@ use AlecGunnar\HttpRouter\Entity\Match;
 interface MatchFactoryInterface
 {
     /**
-     * Add a new get route
+     * Get a new match with route and params
      *
      * @param Route $route
      * @param array $params
