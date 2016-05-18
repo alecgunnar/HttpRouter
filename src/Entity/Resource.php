@@ -19,21 +19,21 @@ class Resource
      *
      * @var string
      */
-    private $path;
+    protected $path;
 
     /**
      * The workable path
      *
      * @var string
      */
-    private $compiled;
+    protected $compiled;
 
     /**
      * The names of the dynamic params
      *
      * @var string[]
      */
-    private $params;
+    protected $params;
 
     /**
      * @var string

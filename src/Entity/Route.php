@@ -16,21 +16,21 @@ class Route
      *
      * @var array
      */
-    private $methods;
+    protected $methods;
 
     /**
      * The resource path to be matched
      *
      * @var string
      */
-    private $resource;
+    protected $resource;
 
     /**
      * Return value of this route
      *
      * @var callable
      */
-    private $handler;
+    protected $handler;
 
     /**
      * @var string[]

@@ -14,14 +14,14 @@ class Match
      *
      * @var Route
      */
-    private $route;
+    protected $route;
 
     /**
      * Any dynamic params taken from the resource name
      *
      * @var array
      */
-    private $params;
+    protected $params;
 
     /**
      * @param Route $route The matched route

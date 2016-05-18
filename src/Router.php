@@ -19,7 +19,7 @@ class Router implements RouterInterface
      *
      * @var RouteCollectionInterface
      */
-    private $collection;
+    protected $collection;
 
     /**
      * @param RouteCollectionInterface $collection The collection of routes to be used
