@@ -40,8 +40,8 @@ interface RouteCollectionInterface
     /**
      * Returns the list of routes
      *
-     * @param bool $includeNames=false Include the name of the routes or not
+     * @param bool $assoc=false Return the associative array of routes
      * @return array
      */
-    public function getRoutes(bool $includeNames=false): array;
+    public function getRoutes(bool $assoc=false): array;
 }

@@ -1,5 +1,8 @@
 <?php
 
+namespace AlecGunnar\HttpRouter\Test\Entity;
+
+use PHPUnit_Framework_TestCase;
 use AlecGunnar\HttpRouter\Entity\Resource;
 
 class ResourceTest extends PHPUnit_Framework_TestCase
@@ -219,5 +222,16 @@ class ResourceTest extends PHPUnit_Framework_TestCase
         $instance = new Resource($given);
 
         $this->assertEquals($expected, $instance->getParams());
+    }
+
+    public function testWithPrefixDoesNotAddRootPrefix()
+    {
+        $given = $expected = '/hello/world';
+
+        $instance = new Resource($given);
+
+        $instance->withPrefix('/');
+
+        $this->assertAttributeEquals($expected, 'path', $instance);
     }
 }

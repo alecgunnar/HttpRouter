@@ -1,5 +1,8 @@
 <?php
 
+namespace AlecGunnar\HttpRouter\Test;
+
+use PHPUnit_Framework_TestCase;
 use AlecGunnar\HttpRouter\Router;
 use AlecGunnar\HttpRouter\Collection\RouteCollection;
 use AlecGunnar\HttpRouter\Entity\Route;

@@ -11,8 +11,10 @@ use AlecGunnar\HttpRouter\Entity\Resource;
 use AlecGunnar\HttpRouter\Entity\Route;
 use InvalidArgumentException;
 
-class PrefixedRouteCollection extends RouteCollection
+class PrefixedRouteCollection implements RouteCollectionInterface
 {
+    use RouteCollectionTrait;
+
     /**
      * The prefix for the routes in this collection
      *
@@ -26,8 +28,6 @@ class PrefixedRouteCollection extends RouteCollection
     public function __construct(Resource $prefix)
     {
         $this->prefix = $prefix;
-
-        parent::__construct();
     }
 
     /**
@@ -38,7 +38,13 @@ class PrefixedRouteCollection extends RouteCollection
         $route->getResource()
             ->withPrefix($this->prefix->getPath());
 
-        return parent::withRoute($route, $name);
+        if ($name !== null) {
+            $this->routes[$name] = $route;
+        } else {
+            $this->routes[] = $route;
+        }
+
+        return $this;
     }
 
     /**
@@ -46,11 +52,15 @@ class PrefixedRouteCollection extends RouteCollection
      */
     public function mergeCollection(RouteCollectionInterface $collection): RouteCollectionInterface
     {
-        foreach ($collection->getRoutes() as $route) {
+        $routes = $collection->getRoutes(true);
+
+        foreach ($routes as $route) {
             $route->getResource()
                 ->withPrefix($this->prefix->getPath());
         }
 
-        return parent::mergeCollection($collection);
+        $this->routes = array_merge($this->routes, $routes);
+
+        return $this;
     }
 }

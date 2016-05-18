@@ -81,9 +81,11 @@ class Resource
      */
     public function withPrefix(string $prefix): Resource
     {
-        $this->path = $this->trimPath($prefix) . $this->path;
+        if (($prefix = $this->trimPath($prefix)) != self::PART_SEP) {
+            $this->path = $prefix . $this->path;
 
-        $this->compilePath();
+            $this->compilePath();
+        }
 
         return $this;
     }

@@ -1,47 +1,38 @@
 <?php
 
+namespace AlecGunnar\HttpRouter\Test\Collection;
+
 use AlecGunnar\HttpRouter\Collection\PrefixedRouteCollection;
 use AlecGunnar\HttpRouter\Collection\RouteCollection;
 use AlecGunnar\HttpRouter\Entity\Route;
 use AlecGunnar\HttpRouter\Entity\Resource;
 
-class PrefixedRouteCollectionTest extends PHPUnit_Framework_TestCase
+class PrefixedRouteCollectionTest extends SharedRouteCollectionTests
 {
-    public function getDummyRoute()
+    public function getInstance(string $prefix=null)
     {
-        return new class extends Route {
-            public function __construct() { }
-        };
+        return new PrefixedRouteCollection(new Resource($prefix ?? '/'));
     }
 
-    public function testConstructorSetsPrefixAndDefaultValuesToAttributes()
+    public function getDummyRoute(string $path=null)
     {
-        $given = $expected = new Resource('/hello');
-        $routes = [];
-        $position = 0;
-
-        $instance = new PrefixedRouteCollection($given);
-
-        $this->assertAttributeEquals($expected, 'prefix', $instance);
-        $this->assertAttributeEquals($routes, 'routes', $instance);
-        $this->assertAttributeEquals($position, 'position', $instance);
+        return parent::getDummyRoute()->setResource(new Resource($path ?? '/'));
     }
 
-    public function testCollectionWithPrefixAppendsPrefixToRoute()
+    public function testWithRouteAddsPrefixToRoute()
     {
-        $prefix = new Resource('/hello');
-        $path = new Resource('/to:*');
-        $route = $this->getDummyRoute()->setResource($path);
-        $expected = '/hello/to:*';
+        $prefix = '/hello';
+        $path = '/world';
+        $route = $this->getDummyRoute($path);
+        $expected = '/hello/world';
 
-        $instance = new PrefixedRouteCollection($prefix);
-
+        $instance = $this->getInstance($prefix);
         $instance->withRoute($route);
 
         $this->assertEquals($expected, $route->getResource()->getPath());
     }
 
-    public function testRoutesInMergedCollectionReceivePrefix()
+    public function testMergeCollectionMergesRoutes()
     {
         $collection = new RouteCollection();
 

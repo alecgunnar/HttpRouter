@@ -21,6 +21,11 @@
             "AlecGunnar\\HttpRouter\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "AlecGunnar\\HttpRouter\\Test\\": "tests/src/"
+        }
+    },
     "suggest": {
         "guzzlehttp/psr7": "Implementations of the various PSR-7 interfaces."
     }
