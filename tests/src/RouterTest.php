@@ -44,10 +44,12 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $method = 'GET';
         $path = '/hello/world';
         $route = new Route([$method], new Resource($path), $this->dummyHandler);
+        $route1 = new Route([$method], new Resource($path . '/another'), $this->dummyHandler);
         $request = $this->getDummyRequest($method, $path);
 
         $collection = new RouteCollection();
-        $collection->withRoute($route);
+        $collection->withRoute($route1)
+            ->withRoute($route);
 
         $matchFactory = $this->getMockBuilder(MatchFactory::class)
             ->getMock();
@@ -71,10 +73,12 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $pattern = '/hello/' . $param . ':[a-z]+';
         $params = [$param => $to];
         $route = new Route([$method], new Resource($pattern), $this->dummyHandler);
+        $route1 = new Route([$method], new Resource($pattern . '/another'), $this->dummyHandler);
         $request = $this->getDummyRequest($method, $path);
 
         $collection = new RouteCollection();
-        $collection->withRoute($route);
+        $collection->withRoute($route1)
+            ->withRoute($route);
 
         $matchFactory = $this->getMockBuilder(MatchFactory::class)
             ->getMock();
