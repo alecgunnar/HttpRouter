@@ -40,7 +40,7 @@ class Route
     /**
      * @param array $methods
      * @param Resource $resource
-     * @param callable $handler=false
+     * @param callable $handler
      */
     public function __construct(array $methods, Resource $resource, callable $handler)
     {
