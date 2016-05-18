@@ -10,9 +10,12 @@ class MatchFactoryTest extends PHPUnit_Framework_TestCase
 {
     protected function getDummyRoute()
     {
-        return new class extends Route {
-            public function __construct() { }
-        };
+        return new class extends Route
+ {
+     public function __construct()
+     {
+     }
+ };
     }
 
     public function testGetInstanceSetsRoute()

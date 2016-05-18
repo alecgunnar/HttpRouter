@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -13,9 +13,9 @@ use AlecGunnar\HttpRouter\Entity\Match;
 class MatchFactory implements MatchFactoryInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function getInstance(Route $route, array $params=[]): Match
+    public function getInstance(Route $route, array $params = []): Match
     {
         return new Match($route, $params);
     }

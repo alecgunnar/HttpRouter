@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -13,113 +13,124 @@ use AlecGunnar\HttpRouter\Entity\Resource;
 interface RouteFactoryInterface
 {
     /**
-     * Add a new get route
+     * Add a new get route.
      *
      * @param string[] $methods
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param array $options
-     * @param string $name
+     * @param array    $options
+     * @param string   $name
+     *
      * @return Route
      */
     public function getInstance(array $methods, Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new get route
+     * Add a new get route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function get(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new post route
+     * Add a new post route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function post(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new put route
+     * Add a new put route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function put(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new patch route
+     * Add a new patch route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function patch(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new delete route
+     * Add a new delete route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function delete(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new connect route
+     * Add a new connect route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function connect(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new options route
+     * Add a new options route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function options(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new head route
+     * Add a new head route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function head(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new trace route
+     * Add a new trace route.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function trace(Resource $resource, callable $handler): Route;
 
     /**
-     * Add a new route to match any method
+     * Add a new route to match any method.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @param callable $handler
-     * @param string $name
+     * @param string   $name
+     *
      * @return Route
      */
     public function any(Resource $resource, callable $handler): Route;

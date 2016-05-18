@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */

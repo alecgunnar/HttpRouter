@@ -20,7 +20,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     {
         $methods = Route::HTTP_METHODS;
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -32,7 +32,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testGetCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -44,7 +44,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testPutCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -56,7 +56,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testPostCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -68,7 +68,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testPatchCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -80,7 +80,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testDeleteCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -92,7 +92,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testOptionsCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -104,7 +104,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testConnectCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -116,7 +116,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testTraceCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -128,7 +128,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testHeadCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 
@@ -140,7 +140,7 @@ class RouteFactoryTest extends PHPUnit_Framework_TestCase
     public function testAnyCreatesNewRouteUsingArgumentsAndReturnsIt()
     {
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $factory = new RouteFactory();
 

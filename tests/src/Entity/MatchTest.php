@@ -12,16 +12,22 @@ class MatchTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $this->dummyRoute = new class extends Route {
-            public function __construct() { }
-        };
+        $this->dummyRoute = new class extends Route
+ {
+     public function __construct()
+     {
+     }
+ };
     }
 
     public function testConstructorSetsAttributes()
     {
-        $route = new class extends Route {
-            public function __construct() { }
-        };
+        $route = new class extends Route
+ {
+     public function __construct()
+     {
+     }
+ };
         $params = ['a' => 'b', 'c' => 'd'];
 
         $instance = new Match($route, $params);
@@ -35,9 +41,12 @@ class MatchTest extends PHPUnit_Framework_TestCase
      */
     public function testGetRouteReturnsRoute()
     {
-        $given = $expected = new class extends Route {
-            public function __construct() { }
-        };
+        $given = $expected = new class extends Route
+ {
+     public function __construct()
+     {
+     }
+ };
 
         $instance = new Match($given);
 

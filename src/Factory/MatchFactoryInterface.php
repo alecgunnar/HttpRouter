@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -13,11 +13,12 @@ use AlecGunnar\HttpRouter\Entity\Match;
 interface MatchFactoryInterface
 {
     /**
-     * Get a new match with route and params
+     * Get a new match with route and params.
      *
      * @param Route $route
      * @param array $params
+     *
      * @return Match
      */
-    public function getInstance(Route $route, array $params=[]): Match;
+    public function getInstance(Route $route, array $params = []): Match;
 }

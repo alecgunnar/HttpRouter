@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -12,7 +12,7 @@ use InvalidArgumentException;
 class Resource
 {
     /**
-     * Example paths:
+     * Example paths:.
      *
      * - Static: /hello/world
      * - Dynamic: /hello/name:[A-Za-z]+
@@ -22,14 +22,14 @@ class Resource
     protected $path;
 
     /**
-     * The workable path
+     * The workable path.
      *
      * @var string
      */
     protected $compiled;
 
     /**
-     * The names of the dynamic params
+     * The names of the dynamic params.
      *
      * @var string[]
      */
@@ -57,8 +57,10 @@ class Resource
 
     /**
      * @throws InvalidArgumentException
+     *
      * @param string $path
-     * @return Resource
+     *
+     * @return resource
      */
     public function setPath(string $path): Resource
     {
@@ -74,15 +76,16 @@ class Resource
     }
 
     /**
-     * Prepends a path to the existing path
+     * Prepends a path to the existing path.
      *
      * @param string $prefix The prefix to be added
-     * @return Resource
+     *
+     * @return resource
      */
     public function withPrefix(string $prefix): Resource
     {
         if (($prefix = $this->trimPath($prefix)) != self::PART_SEP) {
-            $this->path = $prefix . $this->path;
+            $this->path = $prefix.$this->path;
 
             $this->compilePath();
         }
@@ -111,7 +114,7 @@ class Resource
     }
 
     /**
-     * Creates the matchable regex path for the route matcher
+     * Creates the matchable regex path for the route matcher.
      */
     protected function compilePath()
     {
@@ -120,22 +123,22 @@ class Resource
 
         $parts = explode(self::PART_SEP, trim($this->path, self::PART_SEP));
 
-        foreach($parts as $part) {
+        foreach ($parts as $part) {
             $data = explode(self::PATTERN_SEP, $part);
 
             if (count($data) == 2) {
                 $this->params[] = $data[0];
-               $pattern .= self::PART_SEP . '(' . $data[1] . ')';
+                $pattern .= self::PART_SEP.'('.$data[1].')';
             } else {
-               $pattern .= self::PART_SEP . $data[0];
+                $pattern .= self::PART_SEP.$data[0];
             }
         }
 
-        $this->compiled = '^' . $this->trimPath($pattern) . '$';
+        $this->compiled = '^'.$this->trimPath($pattern).'$';
     }
 
     protected function trimPath(string $path)
     {
-        return self::PART_SEP . trim($path, self::TRIM_CHARS);
+        return self::PART_SEP.trim($path, self::TRIM_CHARS);
     }
 }

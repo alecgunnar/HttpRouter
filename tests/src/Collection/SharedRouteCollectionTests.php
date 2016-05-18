@@ -4,7 +4,6 @@ namespace AlecGunnar\HttpRouter\Test\Collection;
 
 use PHPUnit_Framework_TestCase;
 use AlecGunnar\HttpRouter\Entity\Route;
-use AlecGunnar\HttpRouter\Entity\Resource;
 
 abstract class SharedRouteCollectionTests extends PHPUnit_Framework_TestCase
 {
@@ -12,9 +11,12 @@ abstract class SharedRouteCollectionTests extends PHPUnit_Framework_TestCase
 
     public function getDummyRoute()
     {
-        return new class extends Route {
-            public function __construct() { }
-        };
+        return new class extends Route
+ {
+     public function __construct()
+     {
+     }
+ };
     }
 
     public function testWithRouteAddsRouteToListAndReturnsSelf()
@@ -132,7 +134,7 @@ abstract class SharedRouteCollectionTests extends PHPUnit_Framework_TestCase
             $name1 => $route1,
             $route2,
             $name3 => $route3,
-            $route4
+            $route4,
         ];
 
         $collection->withRoute($route1, $name1)
@@ -163,7 +165,7 @@ abstract class SharedRouteCollectionTests extends PHPUnit_Framework_TestCase
         $expected = [
             $name1 => $route3,
             $route2,
-            $route4
+            $route4,
         ];
 
         $collection->withRoute($route1, $name1)

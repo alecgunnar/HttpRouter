@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -12,21 +12,21 @@ use InvalidArgumentException;
 class Route
 {
     /**
-     * Allowed methods for this route
+     * Allowed methods for this route.
      *
      * @var array
      */
     protected $methods;
 
     /**
-     * The resource path to be matched
+     * The resource path to be matched.
      *
      * @var string
      */
     protected $resource;
 
     /**
-     * Return value of this route
+     * Return value of this route.
      *
      * @var callable
      */
@@ -38,8 +38,8 @@ class Route
     const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD', 'TRACE', 'CONNECT'];
 
     /**
-     * @param array $methods
-     * @param Resource $resource
+     * @param array    $methods
+     * @param resource $resource
      * @param callable $handler
      */
     public function __construct(array $methods, Resource $resource, callable $handler)
@@ -56,7 +56,7 @@ class Route
             throw new InvalidArgumentException('At least one method must be supplied for the route.');
         }
 
-        $this->methods = array_map(function($method) {
+        $this->methods = array_map(function ($method) {
             return strtoupper($method);
         }, $methods);
 
@@ -71,6 +71,7 @@ class Route
     public function setResource(Resource $resource): Route
     {
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -82,6 +83,7 @@ class Route
     public function setHandler(callable $handler): Route
     {
         $this->handler = $handler;
+
         return $this;
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -12,7 +12,7 @@ use AlecGunnar\HttpRouter\Factory\PrefixedRouteFactory;
 class PrefixedRouteFactoryFactory implements PrefixedRouteFactoryFactoryInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getInstance(string $prefix): PrefixedRouteFactory
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -12,10 +12,11 @@ use AlecGunnar\HttpRouter\Entity\Resource;
 interface ResourceFactoryInterface
 {
     /**
-     * Get a new resource with path
+     * Get a new resource with path.
      *
      * @param string $path
-     * @return Resource
+     *
+     * @return resource
      */
     public function getInstance(string $path): Resource;
 }

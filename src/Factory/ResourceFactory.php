@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -12,7 +12,7 @@ use AlecGunnar\HttpRouter\Entity\Resource;
 class ResourceFactory implements ResourceFactoryInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getInstance(string $path): Resource
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -26,7 +26,7 @@ class PrefixedRouteFactory extends RouteFactory
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getInstance(array $methods, Resource $resource, callable $handler): Route
     {

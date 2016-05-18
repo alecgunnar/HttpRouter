@@ -17,17 +17,17 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $this->dummyHandler = function() { };
+        $this->dummyHandler = function () { };
     }
 
-    protected function getInstance($collection, $matchFactory=null)
+    protected function getInstance($collection, $matchFactory = null)
     {
         return new Router($collection, $matchFactory ?? new MatchFactory());
     }
 
     private function getDummyRequest($method, $path)
     {
-        return new ServerRequest($method, 'http://localhost:80' . $path);
+        return new ServerRequest($method, 'http://localhost:80'.$path);
     }
 
     public function testConstructorSetsCollection()
@@ -44,7 +44,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $method = 'GET';
         $path = '/hello/world';
         $route = new Route([$method], new Resource($path), $this->dummyHandler);
-        $route1 = new Route([$method], new Resource($path . '/another'), $this->dummyHandler);
+        $route1 = new Route([$method], new Resource($path.'/another'), $this->dummyHandler);
         $request = $this->getDummyRequest($method, $path);
 
         $collection = new RouteCollection();
@@ -69,11 +69,11 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $method = 'GET';
         $param = 'to';
         $to = 'wolfgang';
-        $path = '/hello/' . $to;
-        $pattern = '/hello/' . $param . ':[a-z]+';
+        $path = '/hello/'.$to;
+        $pattern = '/hello/'.$param.':[a-z]+';
         $params = [$param => $to];
         $route = new Route([$method], new Resource($pattern), $this->dummyHandler);
-        $route1 = new Route([$method], new Resource($pattern . '/another'), $this->dummyHandler);
+        $route1 = new Route([$method], new Resource($pattern.'/another'), $this->dummyHandler);
         $request = $this->getDummyRequest($method, $path);
 
         $collection = new RouteCollection();

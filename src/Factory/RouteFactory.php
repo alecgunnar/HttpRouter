@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -13,7 +13,7 @@ use AlecGunnar\HttpRouter\Entity\Resource;
 class RouteFactory implements RouteFactoryInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getInstance(array $methods, Resource $resource, callable $handler): Route
     {
@@ -21,7 +21,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function get(Resource $resource, callable $handler): Route
     {
@@ -29,7 +29,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function post(Resource $resource, callable $handler): Route
     {
@@ -37,7 +37,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function put(Resource $resource, callable $handler): Route
     {
@@ -45,7 +45,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function patch(Resource $resource, callable $handler): Route
     {
@@ -53,7 +53,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function delete(Resource $resource, callable $handler): Route
     {
@@ -61,7 +61,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function connect(Resource $resource, callable $handler): Route
     {
@@ -69,7 +69,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function options(Resource $resource, callable $handler): Route
     {
@@ -77,7 +77,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function head(Resource $resource, callable $handler): Route
     {
@@ -85,7 +85,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function trace(Resource $resource, callable $handler): Route
     {
@@ -93,7 +93,7 @@ class RouteFactory implements RouteFactoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function any(Resource $resource, callable $handler): Route
     {

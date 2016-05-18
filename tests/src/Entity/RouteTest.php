@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 use AlecGunnar\HttpRouter\Entity\Route;
 use AlecGunnar\HttpRouter\Entity\Resource;
 
-class RouteTeach extends PHPUnit_Framework_TestCase
+class RouteTest extends PHPUnit_Framework_TestCase
 {
     private $dummyResource;
     private $dummyHandler;
@@ -14,14 +14,14 @@ class RouteTeach extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->dummyResource = new Resource('/');
-        $this->dummyHandler = function() { };
+        $this->dummyHandler = function () { };
     }
 
     public function testConstructorSetsAttributes()
     {
         $methods = ['GET', 'POST'];
         $resource = new Resource('/hello/world');
-        $handler = function() { };
+        $handler = function () { };
 
         $instance = new Route($methods, $resource, $handler);
 
@@ -47,7 +47,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
         $instance->setMethods([]);
     }
-    
+
     public function testConstructorUppercasesMethods()
     {
         $given = ['get', 'pUt', 'posT', 'DeletE'];
@@ -57,7 +57,7 @@ class RouteTeach extends PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals($expected, 'methods', $instance);
     }
-    
+
     public function testSetMethodsUppercasesMethodsAndReturnsSelf()
     {
         $given = ['get', 'pUt', 'posT', 'DeletE'];

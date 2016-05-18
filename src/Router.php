@@ -1,6 +1,6 @@
 <?php
 /**
- * HTTP Routing Library
+ * HTTP Routing Library.
  *
  * @author Alec Carpenter <alecgunnar@gmail.com>
  */
@@ -18,14 +18,14 @@ use AlecGunnar\HttpRouter\Exception\NotFoundException;
 class Router implements RouterInterface
 {
     /**
-     * The collection of routes to be scanned
+     * The collection of routes to be scanned.
      *
      * @var RouteCollectionInterface
      */
     protected $collection;
 
     /**
-     * Factory to generate match objects
+     * Factory to generate match objects.
      *
      * @var MatchFactoryInterface
      */
@@ -41,15 +41,15 @@ class Router implements RouterInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getMatch(ServerRequestInterface $request): Match
     {
         $matches = 0;
 
         foreach ($this->collection->getRoutes() as $route) {
-            $match = $route->getResource()->isDynamic() 
-                ? $this->checkDynamicRoute($request, $route) 
+            $match = $route->getResource()->isDynamic()
+                ? $this->checkDynamicRoute($request, $route)
                 : $this->checkStaticRoute($request, $route);
 
             if ($match instanceof Match) {
@@ -57,7 +57,7 @@ class Router implements RouterInterface
                     return $match;
                 }
 
-                $matches++;
+                ++$matches;
             }
         }
 
@@ -85,11 +85,12 @@ class Router implements RouterInterface
         $resource = $route->getResource();
 
         if (preg_match(
-            '#' . $resource->getCompiledPath() . '#',
+            '#'.$resource->getCompiledPath().'#',
             $request->getUri()->getPath(),
             $params
         ) == count($resource->getParams())) {
             array_shift($params);
+
             return $this->matches->getInstance($route, array_combine($resource->getParams(), $params));
         }
     }
